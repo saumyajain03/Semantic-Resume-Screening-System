@@ -1,0 +1,10 @@
+Job Title: Senior Python Developer
+
+Requirements:
+- Strong proficiency in Python and Django framework.
+- Knowledge of Data Science and Machine Learning techniques.
+- Experience with SQL and database design.
+- Ability to build REST APIs.
+- Familiarity with Git for version control.
+
+Preferred: Experience with AWS or cloud services.

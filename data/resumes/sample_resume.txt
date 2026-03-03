@@ -1,0 +1,10 @@
+John Doe
+Python Developer
+
+Experience:
+- 3 years of software development using Python and Django.
+- Experience with Machine Learning and Data Science.
+- Worked with SQL databases like PostgreSQL.
+- Skilled in REST API development and Git.
+
+Skills: Python, Django, SQL, Machine Learning, Data Science, API, Git.
