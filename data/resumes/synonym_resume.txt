@@ -1,0 +1,5 @@
+Name: Alex Rivera
+Profile:
+- Passionate about AI and building smart systems.
+- 2 years of experience with LLMs and GPT.
+- Familiar with machine learning and pattern recognition.
