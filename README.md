@@ -81,5 +81,26 @@ The system ranking multiple resumes simultaneously and flagging the best candida
 ## 🧠 Design Philosophy
 This system addresses the "Black Box" problem in AI screening. By providing both a **Keyword matching** mode (for strict requirements) and a **Semantic mode** (for talent discovery), it gives recruiters a balanced toolkit.
 
+## ⚡ Challenges Faced
+
+Building this project involved overcoming several engineering challenges:
+
+1. **Model Initialization Time**:
+   - The `sentence-transformers` package and HuggingFace models are computationally heavy, leading to long API startup times. This was mitigated by implementing lazy loading and preloading models in background threads.
+
+2. **Balancing Precision and Performance**:
+   - Achieving high precision in resume-job matching required combining TF-IDF for exact matches and semantic embeddings for conceptual overlaps. Optimizing this hybrid approach while maintaining performance was a key focus.
+
+3. **Scalability**:
+   - Processing large batches of resumes efficiently required careful memory management and leveraging multi-threading for parallelism.
+
+4. **Explainability**:
+   - Providing recruiters with explainable scores for matching results was critical. This required designing clear and interpretable outputs for both TF-IDF and semantic engines.
+
+5. **Error Handling**:
+   - Ensuring robust error handling for diverse resume formats and incomplete job descriptions was essential to maintain reliability.
+
+These challenges were addressed with a focus on engineering best practices, making the system robust and production-ready.
+
 ## Author:
 Saumya Jain

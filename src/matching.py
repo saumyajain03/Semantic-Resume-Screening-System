@@ -7,6 +7,8 @@ try:
 except ImportError:
     SentenceTransformer = None
 
+model = None  # Global variable for lazy loading
+
 def compute_similarity(resume_text: str, job_description_text: str, skill_weights: Optional[Dict[str, float]] = None):
     """
     Computes similarity between resume and job description using TF-IDF and Cosine Similarity.
@@ -44,6 +46,15 @@ def compute_similarity(resume_text: str, job_description_text: str, skill_weight
     
     return similarity_score, df
 
+def get_model():
+    """
+    Lazily loads the SentenceTransformer model.
+    """
+    global model
+    if model is None:
+        model = SentenceTransformer('all-MiniLM-L6-v2')
+    return model
+
 def compute_semantic_similarity(resume_text: str, job_description_text: str):
     """
     Computes similarity using sentence embeddings for conceptual matching.
@@ -52,11 +63,10 @@ def compute_semantic_similarity(resume_text: str, job_description_text: str):
     if SentenceTransformer is None:
         raise ImportError("sentence-transformers not installed. Run 'pip install sentence-transformers'.")
 
-    # Load the model
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    # Load the model lazily
+    model = get_model()
 
     # Generate Embeddings
-    # Document 1: Resume, Document 2: Job Description
     embeddings = model.encode([resume_text, job_description_text])
 
     # Compute Cosine Similarity

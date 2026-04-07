@@ -2,9 +2,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Dict, Optional, Any
 from src.preprocessing import clean_text
-from src.matching import compute_similarity, compute_semantic_similarity
+from src.matching import compute_similarity, compute_semantic_similarity, get_model
 from src.ner import extract_entities
 import math
+from threading import Thread
 
 app = FastAPI(
     title="AI Resume Screening API",
@@ -143,7 +144,16 @@ async def analyze_entities(request: AnalyzeRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error during entity extraction: {str(e)}")
 
+def preload_model():
+    """
+    Preloads the SentenceTransformer model in a background thread.
+    """
+    get_model()
+
+# Start the model preload thread
+Thread(target=preload_model).start()
+
 if __name__ == "__main__":
     import uvicorn
     # To run this script directly for debugging
-    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True, workers=2)
